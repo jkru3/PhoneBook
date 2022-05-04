@@ -1,0 +1,32 @@
+Make stubsDefine object firstTest program with hardcoded dataManager class w/ different methodsDo a hashtable programJava/c/python program using linkedlists…… Etc.
+
+file I/O
+
+.add(value);
+or 
+.add(value, index);
+
+.remove(index);
+
+.display(while != null);
+
+.modify(index, value);
+
+.sort("parameter" e.g. last name);
+
+.search(value != null);
+
+.search(index);			PB search()
+
+.size(while != null);
+
+alphabetical narrow in search query
+
+
+CardGame Java
+PhoneBook C++ (enum and hashtable?)
+Recode Calendar in Python
+VGA Personality Test
+Search Query C
+
+
