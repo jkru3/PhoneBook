@@ -3,18 +3,17 @@ import java.util.Scanner;
 
 public class PhonebookTest
 {
-    public static Scanner input = new Scanner(System.in);
+    protected static Scanner input = new Scanner(System.in);
     
     public static void main(String[] args)
     {
         PhonebookManager bellingham = new PhonebookManager();
         int              selection  = 0; // Integer object?
-        boolean          exit       = false;
     
         while(selection != 4)
         {
-            System.out.printf("\n1. Show all contacts \n" + "2. Look up a contact \n" +
-                              "3. Add a contact \n" + "4. Exit \n" +
+            System.out.printf("1. Show all contacts \t" + "2. Look up a contact \t" +
+                              "3. Add a contact \t" + "4. Exit\n" +
                               "What would you like to do? ");
             String testSelection = input.nextLine();
             try{
@@ -22,12 +21,19 @@ public class PhonebookTest
                 if(selection > 4 || selection < 1)
                     System.out.println("Invalid selection");
             } catch(Exception e) {
+                selection = 0;
                 System.out.println("Invalid selection");
             }
         
             switch(selection){
                 case 1:
                     bellingham.showAll();
+                    break;
+                case 2:
+                    bellingham.narrowDown();
+                    break;
+                case 3:
+                    bellingham.addContact();
                     break;
                 default:
                     break;
