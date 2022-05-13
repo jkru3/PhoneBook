@@ -5,6 +5,8 @@
 // This class serves as a medium between ListNode and Main
 // In this class, the user gets prompted to interact with the program and statements are
 // printed into the console.
+//
+// I'm not going to comment too much here. This is really basic menu-interface stuff
 
 
 package a2;
@@ -24,11 +26,14 @@ public class PhonebookManager extends Main
                                     "ilikemoney@krustykrab.com", ""});
         phoneBook.add(
                 new String[] {"Satya", "Nadella", "4257779821", "satyan@microsoft.com",
-                              "hey Microsoft, you hiring?"});
+                              "hello Microsoft, are you hiring?"});
         phoneBook.add(new String[] {"Bobby", "Hill", "3607852938",
                                     "thatsmypurse@strickland.com", ""});
         phoneBook.add(new String[] {"Kurt", "Cobain", "4256658927",
-                                    "kurt@corporatesellouts.com", "he's dead"});
+                                    "kurt@corporatesellouts.com", ""});
+        phoneBook.add(new String[] {"Joey", "Krueger", "3204556575",
+                                    "josephkrueger@protonmail.com",
+                                    "email is best for all inquires!"});
     }
     
     public void showAll() //prints all ListNode entries in phoneBook
@@ -95,7 +100,20 @@ public class PhonebookManager extends Main
         String address = input.nextLine();
         System.out.print("Additional notes: ");
         String notes = input.nextLine();
-        phoneBook.add(new String[] {firstName, lastName, phoneNumber, address, notes});
+        System.out.print(
+                "Where would you like to add in the phonebook? (type -1 for the end)\nIndex #: ");
+        int index = stringInputConvert(input);
+        while(index > phoneBook.size()){
+            System.out.print("That is not a valid Index number: ");
+            index = stringInputConvert(input);
+        }
+        if(index < 0) {
+            phoneBook.add(
+                    new String[] {firstName, lastName, phoneNumber, address, notes});
+        } else {
+            phoneBook.add(index, new String[] {firstName, lastName, phoneNumber, address,
+                                               notes});
+        }
         System.out.println("\nContact added!");
     }
     
@@ -164,6 +182,36 @@ public class PhonebookManager extends Main
     
     public void sort()
     {
+        int selection = 0;
+        while(selection < 1 || selection > 6){
+            System.out.print(
+                    "1. First name, Z->A \t" + "2. First name, A->Z \t" +
+                    "3. Last name, Z->A \t" + "4. Last name, A->Z \t" +
+                    "5. Phone number, 1->9 \t" + "6. Phone number, 9->1\n" +
+                    "How would you like to sort? ");
+            selection = stringInputConvert(input);
+            switch(selection){
+                case 1:
+                    phoneBook = phoneBook.sort(phoneBook, 0, 1);
+                    break;
+                case 2:
+                    phoneBook = phoneBook.sort(phoneBook, 0, 2);
+                    break;
+                case 3:
+                    phoneBook = phoneBook.sort(phoneBook, 1, 1);
+                    break;
+                case 4:
+                    phoneBook = phoneBook.sort(phoneBook, 1, 2);
+                    break;
+                case 5:
+                    phoneBook = phoneBook.sort(phoneBook, 2, 3);
+                    break;
+                case 6:
+                    phoneBook = phoneBook.sort(phoneBook, 2, 4);
+                    break;
+            }
+        }
+        System.out.println("\nPhonebook sorted!");
     }
     
     public void edit()
@@ -173,7 +221,6 @@ public class PhonebookManager extends Main
         String edit      = "";
         
         System.out.print("What contact (Integer) would you like to edit? ");
-        index = validIndex();
         while(selection < 1 || selection > 6){
             System.out.print(
                     "1. First name \t" + "2. Last name \t" + "3. Phone number \t" +
@@ -204,6 +251,9 @@ public class PhonebookManager extends Main
         phoneBook.modify(index - 1, selection - 1, edit);
     }
     
+    //this particular fuction get's used alot, it's an additional implementation to the
+    //stringInputConvert() used in main which tests to see if the inputted string is
+    //also an Integer that is within the bounds of the LinkedList
     public int validIndex()
     {
         int index = stringInputConvert(input);

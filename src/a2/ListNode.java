@@ -4,7 +4,7 @@
 //
 // This class implements a Linked List data structure using private and public methods
 // I used an array rather than individual data types to represent the phonebook fields
-// which saved alot of space in the methods
+// which saved alot of space for the methods
 // [0] == First Name
 // [1] == Last Name
 // [2] == Phone Number
@@ -40,7 +40,9 @@ public class ListNode
         this.next = next;
     }
     
-    private ListNode nodeAt(int index) //private getter used only by this class
+    //private getter used only by this class
+    //POST: returns the node at an index for the convenience of other methods in this class
+    private ListNode nodeAt(int index)
     {
         ListNode current = head;
         for(int i = 0; i < index; i++){
@@ -49,8 +51,9 @@ public class ListNode
         return current;
     }
     
-    public String[] stringAt(
-            int index) //getter pulls array-element data from the specified node
+    //getter that pulls array-element data from the specified node.
+    //used when the node isn't needed but the data in the node is -> (phonebook.(get))
+    public String[] stringAt(int index)
     {
         return nodeAt(index).data;
     }
@@ -69,10 +72,10 @@ public class ListNode
     }
     
     public void add(int index,
-                    String[] data) //setter adds a new ListNode anywhere in the list, but it's pretty trivial, and I didn't use it for this version.
+                    String[] data) //setter adds a new ListNode anywhere in the list.
     {
         if(index == 0) {
-            head = new ListNode(data);
+            head = new ListNode(head, data);
         } else {
             ListNode current = nodeAt(index - 1);
             current.next = new ListNode(current.next, data);
@@ -96,12 +99,12 @@ public class ListNode
         current.data[selection] = edit;
     }
     
-    public String get(int index,
-                      int dataField) //getter retrieves information on just one ListNode at a specific spot
+    //getter; give it an index and a datafield
+    //POST: it returns the array value that represents the element of that particular index
+    public String get(int index, int dataField)
     {
         String contact = "";
-        if(dataField == 2)
-        {
+        if(dataField == 2) {
             contact = "(" + (nodeAt(index).data[2]).substring(0, 3) + ")" +
                       (nodeAt(index).data[2]).substring(3, 6) + "-" +
                       (nodeAt(index).data[2]).substring(6, 10);
@@ -111,8 +114,8 @@ public class ListNode
         return contact;
     }
     
-    public boolean contains(int index,
-                            String search) //getter tests to see if a string is contained within the elements of any given ListNode
+    //getter; tests to see if a string is contained within the elements of any given ListNode
+    public boolean contains(int index, String search)
     {
         for(int i = 0; i < DATA_FIELDS; i++){
             if(((nodeAt(index).data[i]).toUpperCase()).contains(
@@ -123,7 +126,7 @@ public class ListNode
         return false;
     }
     
-    public int size() //getter checks the size of the entire Linked List
+    public int size() //getter; checks the size of the entire Linked List
     {
         int      sizeCount = 0;
         ListNode current   = head;
@@ -157,5 +160,70 @@ public class ListNode
             current = current.next;
         }
         return (result);
+    }
+    
+    //This method sorts the data either alphabetically or by phone number
+    //using node data. I feel like there is some redundant code here;
+    //in particular I tried running it through 2 cases, and if there was a way to pass an operator sign in java
+    //I probably could have used one. I just didn't feel the time to figure that out would make it worth it
+    //
+    //TLDR --If I had more time I could make this more elegent! (and maybe I will for my portfolio?)
+    public ListNode sort(ListNode book, int entryField, int sortBy)
+    {
+        ListNode sortedBook = new ListNode();
+        while(!book.isEmpty()){
+            ListNode current  = head;
+            ListNode nodeApex = current;
+            int      index    = 0;
+            int      letter   = 0;
+            for(int node = 1; node < book.size(); node++){
+                switch(sortBy){
+                    case 1:
+                        while(letter != (current.next.data[entryField]).length() - 1 &&
+                              letter != (nodeApex.data[entryField]).length() - 1 &&
+                              (current.next.data[entryField]).charAt(letter) ==
+                              (nodeApex.data[entryField]).charAt(letter)){
+                            letter++;
+                        }
+                        if((current.next.data[entryField]).charAt(letter) >
+                           (nodeApex.data[entryField]).charAt(letter)) {
+                            nodeApex = current.next;
+                            index    = node;
+                        }
+                        break;
+                    case 2:
+                        while(letter != (current.next.data[entryField]).length() - 1 &&
+                              letter != (nodeApex.data[entryField]).length() - 1 &&
+                              (current.next.data[entryField]).charAt(letter) ==
+                              (nodeApex.data[entryField]).charAt(letter)){
+                            letter++;
+                        }
+                        if((current.next.data[entryField]).charAt(letter) <
+                           (nodeApex.data[entryField]).charAt(letter)) {
+                            nodeApex = current.next;
+                            index    = node;
+                        }
+                        break;
+                    case 3:
+                        if(Long.parseLong(current.next.data[2]) <
+                           Long.parseLong(nodeApex.data[2])) {
+                            nodeApex = current.next;
+                            index    = node;
+                        }
+                        break;
+                    case 4:
+                        if(Long.parseLong(current.next.data[2]) >
+                           Long.parseLong(nodeApex.data[2])) {
+                            nodeApex = current.next;
+                            index    = node;
+                        }
+                        break;
+                }
+                current = current.next;
+            }
+            sortedBook.add(book.stringAt(index));
+            book.remove(index);
+        }
+        return sortedBook;
     }
 }

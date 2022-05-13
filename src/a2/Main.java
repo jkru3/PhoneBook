@@ -2,13 +2,19 @@
 // Assignment 2
 // CS145
 //
-// For this program, I used 3 classes to implement a linked list, which i used to make
+// For this program, I used 3 classes to implement a linked list, which I used to make
 // a simple phonebook program.
-// For extra credit, I used protected objects and classes, a try/catch statements,
-// and a sort function
 //
-// ADD -1 FUNCTIONALITY TO ADD METHOD
-// MULTIPLE SORT METHODS
+// For extra credit, I used protected objects and methods (see main),
+// a try/catch statement, and a sort function
+//
+// I didn't include any section for a physical address in this version because I felt that
+// what I have demonstrates that this could be easily implemented
+// and keeping my variables limited made it easier to test and play with.
+//
+// ITERATOR instead of current!!! charmenu
+// a really big book and a small one for testing
+
 
 package a2;
 
@@ -21,7 +27,7 @@ public class Main
     
     public static void main(String[] args) //this is the main loop
     {
-        PhonebookManager bellingham = new PhonebookManager();
+        PhonebookManager masterBook = new PhonebookManager();
         int              selection  = 0;
         boolean          boolSearch = false;
         
@@ -32,15 +38,15 @@ public class Main
             selection = stringInputConvert(input);
             switch(selection){
                 case 1:
-                    bellingham.showAll();
+                    masterBook.showAll();
                     break;
                 case 2:
                     while(!boolSearch){
-                        boolSearch = bellingham.narrowDown();
+                        boolSearch = masterBook.narrowDown();
                     }
                     break;
                 case 3:
-                    bellingham.addContact();
+                    masterBook.addContact();
                     break;
                 default:
                     break;
