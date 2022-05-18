@@ -1,19 +1,12 @@
 // Joseph "Joey" Krueger
-// Assignment 2
 // CS145
 //
 // For this program, I used 3 classes to implement a linked list, which I used to make
 // a simple phonebook program.
 //
-// For extra credit, I used protected objects and methods (see main),
-// a try/catch statement, and a sort function
-//
-// I didn't include any section for a physical address in this version because I felt that
-// what I have demonstrates that this could be easily implemented
-// and keeping my variables limited made it easier to test and play with.
-//
+// Future implementations:
 // ITERATOR instead of current!!! charmenu
-// a really big book and a small one for testing
+// a really big book (using file i/o) and a small one for testing
 
 
 package a2;

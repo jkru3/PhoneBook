@@ -1,5 +1,4 @@
 // Joseph "Joey" Krueger
-// Assignment 2
 // CS145
 //
 // This class serves as a medium between ListNode and Main

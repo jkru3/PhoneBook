@@ -1,5 +1,4 @@
 // Joseph "Joey" Krueger
-// Assignment 2
 // CS145
 //
 // This class implements a Linked List data structure using private and public methods
